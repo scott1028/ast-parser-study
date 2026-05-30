@@ -3,9 +3,15 @@ import { tokenizeSource } from './lib.mjs';
 import { findBracket } from './level-02-find-bracket.mjs';
 
 // diagram:     |       |            |         |    |       |    |     ||   |
-const source = '1 + 2 * (3 + 4 * 2 + (5 + 6 + 7) * 8) * 6 + (7 * (8 + 9)) + 9 * 8';
+const source = '1 + 2 * (3 + 4 * 2 + (5 + 6 + 7) * 8) * 6 + (7 * (8 + 9)) + ((9 * 8 + 7)) + 6';
 
-const unbracketizeTokens = (tokens) => {
+const unbracketizeTokens = (_tokens) => {
+  // handle "[[[...]]]" => "[...]"
+  let tokens = _tokens;
+  while(Array.isArray(tokens) && tokens.length === 1) {
+    tokens = tokens[0];
+  }
+
   const [leftBracketIdx, rightBracketIdx] = findBracket(tokens);
 
   // recursive terminal condition
@@ -38,13 +44,14 @@ const nestifyTokens = (tokens) => {
     return tokens;
   }
 
-  return [
-    ...tokens.slice(0, lastOperatorIdx - 1),
-    nestifyTokens(tokens[lastOperatorIdx - 1]),
-    lastOperator,
-    nestifyTokens(tokens[lastOperatorIdx + 1]),
-    ...tokens.slice(lastOperatorIdx + 2),
-  ];
+  return [];
+  // return [
+  //   ...tokens.slice(0, lastOperatorIdx - 1),
+  //   nestifyTokens(tokens[lastOperatorIdx - 1]),
+  //   lastOperator,
+  //   nestifyTokens(tokens[lastOperatorIdx + 1]),
+  //   ...tokens.slice(lastOperatorIdx + 2),
+  // ];
 }
 
 if (import.meta.main) {
@@ -53,12 +60,12 @@ if (import.meta.main) {
 
   // step-02: unbracket tokens
   const unbracketedTokens = unbracketizeTokens(tokens);
+  console.log('unbracketedTokens:', JSON.stringify(unbracketedTokens, null, 2));
   
   // step-03: nestifyTokens with priority
   const nestedTokens = nestifyTokens(unbracketedTokens);
   
   console.log('source:', source);
   console.log('tokens:', tokens);
-  console.log('unbracketedTokens:', JSON.stringify(unbracketedTokens, null, 2));
-  console.log('nestedTokens:', JSON.stringify(nestedTokens, null, 2));
+  // console.log('nestedTokens:', JSON.stringify(nestedTokens, null, 2));
 }
