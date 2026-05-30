@@ -11,6 +11,10 @@ const groupTokens = (tokens) => {
   // recursive terminal condition
   if (leftBracketIdx === -1 && rightBracketIdx === -1) {
     console.log('debug:', tokens);
+    const isLeaf = !tokens.find(item => Array.isArray(item));
+    if (isLeaf) {
+      return baseNestifyTokens(tokens);
+    }
     return tokens;
   }
 
