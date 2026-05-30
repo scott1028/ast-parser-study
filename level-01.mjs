@@ -38,7 +38,7 @@ export const nestifyTokens = (tokens) => {
       ]
     }
     case undefined: {
-      return tokens[0];
+      return nestifyTokens(tokens[0]);
     }
   }
 }
