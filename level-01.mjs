@@ -39,11 +39,13 @@ export const nestifyTokens = (tokens) => {
   }
 }
 
+if (import.meta.main) {
+  // step-01: make string expression to token expression arrays
+  const tokens = tokenizeSource(source);
+  // step-02: nestifyTokens with priority
+  const nestedTokens = nestifyTokens(tokens);
 
-// step-01: make string expression to token expression arrays
-const tokens = tokenizeSource(source);
-// step-02: nestifyTokens with priority
-const nestedTokens = nestifyTokens(tokens);
-
-console.log('source:', source);
-console.log('nestedTokens:', JSON.stringify(nestedTokens, null, 2));
+  console.log('source:', source);
+  console.log('tokens:', tokens);
+  console.log('nestedTokens:', JSON.stringify(nestedTokens, null, 2));
+}
