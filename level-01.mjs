@@ -9,6 +9,10 @@ const source = '1 + 2 * 3 + 4 + 5 * 6 + 7 + 8 * 9';
  * [[[1 + [2 * 3]] + 4] + [5 * 6]]
  */
 export const nestifyTokens = (tokens) => {
+  if (!Array.isArray(tokens)) {
+    return tokens;
+  }
+
   const lastOperatorIdx = tokens.findLastIndex(token => token.match(/[\+\-\*\/]/))
   const lastOperator = tokens[lastOperatorIdx];
 
@@ -19,9 +23,9 @@ export const nestifyTokens = (tokens) => {
         nestifyTokens(tokens.slice(0, tokens.length - 4)),
         tokens[tokens.length - 4],
         [
-          tokens[tokens.length - 3],
+          nestifyTokens(tokens[tokens.length - 3]),
           lastOperator,
-          tokens[tokens.length - 1],
+          nestifyTokens(tokens[tokens.length - 1]),
         ]
       ]
     }
@@ -30,7 +34,7 @@ export const nestifyTokens = (tokens) => {
       return [
         nestifyTokens(tokens.slice(0, lastOperatorIdx)),
         lastOperator,
-        tokens[tokens.length - 1],
+        nestifyTokens(tokens[tokens.length - 1]),
       ]
     }
     case undefined: {
