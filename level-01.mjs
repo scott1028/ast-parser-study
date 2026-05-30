@@ -13,7 +13,12 @@ export const nestifyTokens = (tokens) => {
     return tokens;
   }
 
-  const lastOperatorIdx = tokens.findLastIndex(token => token.match(/[\+\-\*\/]/))
+  const lastOperatorIdx = tokens.findLastIndex(token => {
+    // if (Array.isArray(token)) {
+    //   return -1;
+    // }
+    return token.match(/[\+\-\*\/]/)
+  })
   const lastOperator = tokens[lastOperatorIdx];
 
   switch (lastOperator) {
