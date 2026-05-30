@@ -10,12 +10,18 @@ const groupTokens = (tokens) => {
 
   // recursive terminal condition
   if (leftBracketIdx === -1 && rightBracketIdx === -1) {
-    console.log('debug:', tokens);
-    const isLeaf = !tokens.find(item => Array.isArray(item));
-    if (isLeaf) {
-      return baseNestifyTokens(tokens);
-    }
-    return tokens;
+    // const isLeaf = !tokens.find(item => Array.isArray(item));
+    // if (isLeaf) {
+    //   // console.log('debug:', tokens);
+    //   return baseNestifyTokens(tokens);
+    // }
+    // console.log('tokens2:', tokens);
+    return tokens.map(token => {
+      if (Array.isArray(token)) {
+        return groupTokens(token)
+      }
+      return token;
+    });
   }
 
   const chunkTokens = tokens.slice(leftBracketIdx + 1, rightBracketIdx);
@@ -23,7 +29,7 @@ const groupTokens = (tokens) => {
 
   return groupTokens([
     ...tokens.slice(0, leftBracketIdx),
-    groupTokens(chunkTokens),
+    chunkTokens,
     ...restChunkTokens,
   ]);
 };
@@ -38,7 +44,7 @@ if (import.meta.main) {
   // step-03: nestifyTokens with priority
   // const nestedTokens = baseNestifyTokens(groupedTokens);
 
-  console.log('source:', source);
-  console.log('tokens:', tokens);
+  // console.log('source:', source);
+  // console.log('tokens:', tokens);
   console.log('groupedTokens:', JSON.stringify(groupedTokens, null, 2));
 }
