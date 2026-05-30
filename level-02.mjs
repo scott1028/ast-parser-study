@@ -10,17 +10,18 @@ const groupTokens = (tokens) => {
 
   // recursive terminal condition
   if (leftBracketIdx === -1 && rightBracketIdx === -1) {
+    console.log('debug:', tokens);
     return tokens;
   }
 
   const chunkTokens = tokens.slice(leftBracketIdx + 1, rightBracketIdx);
   const restChunkTokens = tokens.slice(rightBracketIdx + 1);
 
-  return [
+  return groupTokens([
     ...tokens.slice(0, leftBracketIdx),
     groupTokens(chunkTokens),
-    ...groupTokens(restChunkTokens),
-  ];
+    ...restChunkTokens,
+  ]);
 };
 
 if (import.meta.main) {
