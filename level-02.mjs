@@ -30,38 +30,25 @@ const source = '1 + 2 * (3 + 4 * 2 + (5 + 6 + 7) * 8) * 6 + ((6 + ((7)) + 8) * 9
 //   ]);
 // };
 
-// const nestifyTokens = (tokens) => {
-//   // const tokens = unBracket(_tokens);
-//   // if (!Array.isArray(tokens)) {
-//   //   return tokens;
-//   // }
+/**
+  tokens: [
+    '(', '1', '+', '2', '*',
+    '3', '+', '(', '4', '+',
+    '(', '5', '+', '6', ')',
+    ')', '*', '6', ')'
+  ]
+ */
+const nestifyTokens = (tokens) => {
+  if (!Array.isArray(tokens)) {
+    return tokens;
+  }
   
-//   const lastOperatorIdx = tokens.findLastIndex(token => ['+', '-', '*', '/'].includes(token));
-//   const lastOperator = tokens[lastOperatorIdx];
 
-//   switch (lastOperator) {
-//     case '*':
-//     case '/': {
-//       return [
-//         ...tokens.slice(0, lastOperatorIdx - 1),
-//         [
-//           tokens[lastOperatorIdx - 1],
-//           lastOperator,
-//           tokens[lastOperatorIdx + 1],
-//         ],
-//         ...tokens.slice(lastOperatorIdx + 2),
-//       ];
-//     }
-//     case '+':
-//     case '-': {
-//       return [
-//         ...tokens.slice(0, lastOperatorIdx),
-//         lastOperator,
-//         ...tokens.slice(lastOperatorIdx + 1),
-//       ];
-//     }
-//   }
-// }
+  const lastOperatorIdx = tokens.findLastIndex(token => {
+    return token.match(/[\+\-\*\/]/)
+  })
+  const lastOperator = tokens[lastOperatorIdx];  
+}
 
 if (import.meta.main) {
   // step-01: make string expression to token expression arrays
