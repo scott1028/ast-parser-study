@@ -39,7 +39,7 @@ It then:
 
 This project intentionally keeps the code small and direct so it can be used as a learning reference. Future levels may add more parser features, validation, or AST node types.
 
-## Data Diagram
+## Data algorithm diagram
 ```
 1 + 2 * 3 + 4 * 5
 
