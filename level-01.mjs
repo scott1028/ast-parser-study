@@ -1,4 +1,4 @@
-import { tokenizeSource } from './lib.mjs';
+import { tokenizeSource } from './lib01.mjs';
 
 const source = '1 + 2 * 3 + 4 + 5 * 6 + 7 + 8 * 9';
 
@@ -13,7 +13,7 @@ export const nestifyTokens = (tokens) => {
     return tokens;
   }
 
-  const lastOperatorIdx = tokens.findLastIndex(token => {
+const lastOperatorIdx = tokens.findLastIndex(token => {
     return token.match(/[\+\-\*\/]/)
   })
   const lastOperator = tokens[lastOperatorIdx];

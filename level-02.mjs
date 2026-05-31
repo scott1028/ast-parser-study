@@ -1,71 +1,80 @@
-import { tokenizeSource } from './lib.mjs';
+import { tokenizeSource } from './lib02.mjs';
 // import { nestifyTokens as baseNestifyTokens } from './level-01.mjs';
-import { findBracket } from './level-02-find-bracket.mjs';
+// import { findBracket, unBracket } from './level-02-find-bracket.mjs';
 
 // diagram:     |       |            |         |    |       |    |     ||   |
-const source = '1 + 2 * (3 + 4 * 2 + (5 + 6 + 7) * 8) * 6 + (7 * (8 + 9)) + ((9 * 8 + 7)) + 6';
+const source = '1 + 2 * (3 + 4 * 2 + (5 + 6 + 7) * 8) * 6 + ((6 + ((7)) + 8) * 9) + ((9 * 8 + 7)) * 6';
+// const source = '1 + 2 * 3 + (4 + 5) * 6';
 
-const unbracketizeTokens = (_tokens) => {
-  // handle "[[[...]]]" => "[...]"
-  let tokens = _tokens;
-  while(Array.isArray(tokens) && tokens.length === 1) {
-    tokens = tokens[0];
-  }
+// const unbracketizeTokens = (tokens) => {
+//   const [leftBracketIdx, rightBracketIdx] = findBracket(tokens);
 
-  const [leftBracketIdx, rightBracketIdx] = findBracket(tokens);
+//   // recursive terminal condition
+//   if (leftBracketIdx === -1 && rightBracketIdx === -1) {
+//     return tokens.map(token => {
+//       if (Array.isArray(token)) {
+//         return unbracketizeTokens(token)
+//       }
+//       return token;
+//     });
+//   }
 
-  // recursive terminal condition
-  if (leftBracketIdx === -1 && rightBracketIdx === -1) {
-    return tokens.map(token => {
-      if (Array.isArray(token)) {
-        return unbracketizeTokens(token)
-      }
-      return token;
-    });
-  }
+//   const firstChunkTokens = tokens.slice(0, leftBracketIdx);
+//   const chunkTokens = tokens.slice(leftBracketIdx + 1, rightBracketIdx);
+//   const restChunkTokens = tokens.slice(rightBracketIdx + 1);
 
-  const firstChunkTokens = tokens.slice(0, leftBracketIdx);
-  const chunkTokens = tokens.slice(leftBracketIdx + 1, rightBracketIdx);
-  const restChunkTokens = tokens.slice(rightBracketIdx + 1);
+//   return unbracketizeTokens([
+//     ...firstChunkTokens,
+//     chunkTokens,
+//     ...restChunkTokens,
+//   ]);
+// };
 
-  return unbracketizeTokens([
-    ...firstChunkTokens,
-    chunkTokens,
-    ...restChunkTokens,
-  ]);
-};
+// const nestifyTokens = (tokens) => {
+//   // const tokens = unBracket(_tokens);
+//   // if (!Array.isArray(tokens)) {
+//   //   return tokens;
+//   // }
+  
+//   const lastOperatorIdx = tokens.findLastIndex(token => ['+', '-', '*', '/'].includes(token));
+//   const lastOperator = tokens[lastOperatorIdx];
 
-const nestifyTokens = (tokens) => {
-  const lastOperatorIdx = tokens.findLastIndex(token => ['+', '-', '*', '/'].includes(token));
-  const lastOperator = tokens[lastOperatorIdx];
-
-  // terminate condition
-  if (!lastOperator) {
-    return tokens;
-  }
-
-  return [];
-  // return [
-  //   ...tokens.slice(0, lastOperatorIdx - 1),
-  //   nestifyTokens(tokens[lastOperatorIdx - 1]),
-  //   lastOperator,
-  //   nestifyTokens(tokens[lastOperatorIdx + 1]),
-  //   ...tokens.slice(lastOperatorIdx + 2),
-  // ];
-}
+//   switch (lastOperator) {
+//     case '*':
+//     case '/': {
+//       return [
+//         ...tokens.slice(0, lastOperatorIdx - 1),
+//         [
+//           tokens[lastOperatorIdx - 1],
+//           lastOperator,
+//           tokens[lastOperatorIdx + 1],
+//         ],
+//         ...tokens.slice(lastOperatorIdx + 2),
+//       ];
+//     }
+//     case '+':
+//     case '-': {
+//       return [
+//         ...tokens.slice(0, lastOperatorIdx),
+//         lastOperator,
+//         ...tokens.slice(lastOperatorIdx + 1),
+//       ];
+//     }
+//   }
+// }
 
 if (import.meta.main) {
   // step-01: make string expression to token expression arrays
   const tokens = tokenizeSource(source);
 
-  // step-02: unbracket tokens
-  const unbracketedTokens = unbracketizeTokens(tokens);
-  console.log('unbracketedTokens:', JSON.stringify(unbracketedTokens, null, 2));
+  // // step-02: unbracket tokens
+  // const unbracketedTokens = unbracketizeTokens(tokens);
+  // console.log('unbracketedTokens:', JSON.stringify(unbracketedTokens, null, 2));
   
-  // step-03: nestifyTokens with priority
-  const nestedTokens = nestifyTokens(unbracketedTokens);
+  // // step-03: nestifyTokens with priority
+  // const nestedTokens = nestifyTokens(unbracketedTokens);
   
-  console.log('source:', source);
   console.log('tokens:', tokens);
   // console.log('nestedTokens:', JSON.stringify(nestedTokens, null, 2));
+  // console.log('source:', source);
 }

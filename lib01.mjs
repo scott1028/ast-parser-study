@@ -14,3 +14,10 @@ export const tokenizeSource = (stringValue) => {
     return [...acc, curr];
   }, []);
 }
+
+if (import.meta.main) {
+  const source = '1 + 2 * 3 + 4 + 5 * 6';
+  const tokens = tokenizeSource(source);
+  console.log('source:', source);
+  console.log('tokens:', tokens);
+}
