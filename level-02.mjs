@@ -3,7 +3,11 @@ import { tokenizeSource, findParenthesesRange } from './lib02.mjs';
 // import { findBracket, unBracket } from './level-02-find-bracket.mjs';
 
 // diagram:     |       |            |         |    |       |    |     ||   |
-const source = '1 + 2 * (3 + 4 * 2 + (5 + 6 + 7) * 8) * 6 + ((6 + ((7)) + 8) * 9) + ((9 * 8 + 7)) * 6';
+// const source = '1 + 2 * (3 + 4 * 2 + (5 + 6 + 7) * 8) * 6 + ((6 + ((7)) + 8) * 9) + ((9 * 8 + 7)) * 6';
+// const source = '1 + 2 + (3 + 4 + 2 + (5 + 6 + 7) + 8) + 6 + ((6 + ((7)) + 8) + 9) + ((9 + 8 + 7)) + 6';
+const source = '1 + 2 * 3 + 4 * 5 + 6 * 7';
+// const source = '1 + 2 * 3 + 4';
+// const source = '1 + 2 * 3';
 
 /**
   tokens: [
@@ -32,8 +36,58 @@ const removeTokensParentheses = (tokens) => {
   ])
 }
 
-const nestifyTokens = (tokens) => {
-  // wip
+const nestifyTokens = (tokens, rootNode = { left: null, operator: null, right: null }) => {
+  let cursorNode = rootNode;
+
+  for (let idx = 0; idx < tokens.length; idx++) {
+    const token = tokens[idx];
+    switch (token) {
+      case '*':
+      case '/': {
+        if (cursorNode.right) {
+          cursorNode.right = {
+            left: structuredClone(cursorNode.right),
+            operator: token,
+            right: null,
+          }
+          // move cursor
+          cursorNode = cursorNode.right;
+          break;
+        }
+
+        cursorNode.operator = token;
+        break;
+      }
+      case '+':
+      case '-': {
+        if (cursorNode.right) {
+          rootNode.left = structuredClone(rootNode);
+          rootNode.operator = token;
+          rootNode.right = null;
+          // move cursor
+          cursorNode = rootNode;
+          break;
+        }
+
+        cursorNode.operator = token;
+        break;
+      }
+      case '(':
+      case ')': {
+        // TODO: handle paren
+        break;
+      }
+      default: {
+        if (!cursorNode.left) {
+          cursorNode.left = token;
+        } else {
+          cursorNode.right = token;
+        }
+      }
+    }
+  }
+
+  return rootNode;
 }
 
 if (import.meta.main) {
@@ -44,10 +98,10 @@ if (import.meta.main) {
   const removedParenthesesTokens = removeTokensParentheses(tokens);
   
   // step-03: nestifyTokens with priority
-  // const nestedTokens = nestifyTokens(unbracketedTokens);
+  const nestedTokens = nestifyTokens(removedParenthesesTokens);
   
   console.log('tokens:', tokens);
   console.log('removedParenthesesTokens:', JSON.stringify(removedParenthesesTokens, null, 2));
-  // console.log('nestedTokens:', JSON.stringify(nestedTokens, null, 2));
+  console.log('nestedTokens:', JSON.stringify(nestedTokens, null, 2));
   console.log('source:', source);
 }

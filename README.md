@@ -38,3 +38,42 @@ It then:
 ## Notes
 
 This project intentionally keeps the code small and direct so it can be used as a learning reference. Future levels may add more parser features, validation, or AST node types.
+
+## Data Diagram
+```
+1 + 2 * 3 + 4 * 5
+
+# step-1: meet + and then number 2
+  +
+ / \
+1   2
+
+# step-2: meet * and then number 3
+  +
+ / \
+1   *     <--
+   / \
+  2   3
+
+# step-3: meet + and then number 4
+     +    <--
+    / \
+   /   \
+  +     4
+ / \
+1   *
+   / \
+  2   3
+
+# step-4: meet * and then number 5
+     +
+    / \
+   /   *    <--
+  +   / \
+ / \ 4   5
+1   \
+     *
+    / \
+   2   3
+...
+```
