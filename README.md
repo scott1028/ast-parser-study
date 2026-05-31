@@ -41,7 +41,8 @@ This project intentionally keeps the code small and direct so it can be used as 
 
 ## Data algorithm diagram
 ```
-1 + 2 * 3 + 4 * 5 # read left to right by for-loop
+# read left to right by for-loop
+1 + 2 * 3 + 4 * 5
 
 # step-1: meet + and then number 2
   +         <-- cursor here
