@@ -55,7 +55,7 @@ This project intentionally keeps the code small and direct so it can be used as 
    / \
   2   3
 
-# step-3: meet + and then number 4
+# step-3: meet + and then number 4 (*Rebuild whole root tree by moving original data to left bottom)
      +    <--
     / \
    /   \
