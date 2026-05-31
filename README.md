@@ -111,7 +111,7 @@ This project intentionally keeps the code small and direct so it can be used as 
  / \
 1   *
    / \
-  2  null   <-- cursor here
+  2  null   <-- cursor here but put sub frame here
      /  \
    null null
 
@@ -142,16 +142,14 @@ This project intentionally keeps the code small and direct so it can be used as 
      /  \
     3    4
 
-# step-08: meet ")"
+# step-08: meet ")", do nothing but move cursor
   +
  / \
-1  null     <-- cursor here
-   / \
-  *  null
- / \
-2   +
-   /  \
-  3    4
+1   *       <-- cursor here
+    / \
+   2   +
+      /  \
+     3    4
 
 # step-09: meet *
   +
