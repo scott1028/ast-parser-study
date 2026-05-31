@@ -75,8 +75,7 @@ const nestifyTokens = (tokens, rootNode = { left: null, operator: null, right: n
       }
       case '(':
       case ')': {
-        // TODO: handle paren
-        break;
+        throw new Error('not support parentheses yet. go to next level!')
       }
       default: {
         if (!cursorNode.left) {
