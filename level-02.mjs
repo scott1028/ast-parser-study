@@ -5,6 +5,7 @@ import { tokenizeSource, findParenthesesRange } from './lib02.mjs';
 // diagram:     |       |            |         |    |       |    |     ||   |
 // const source = '1 + 2 * (3 + 4 * 2 + (5 + 6 + 7) * 8) * 6 + ((6 + ((7)) + 8) * 9) + ((9 * 8 + 7)) * 6';
 // const source = '1 + 2 + (3 + 4 + 2 + (5 + 6 + 7) + 8) + 6 + ((6 + ((7)) + 8) + 9) + ((9 + 8 + 7)) + 6';
+// const source = '1 + 2 * 3 + 4 * (5 + 6) * 7';
 const source = '1 + 2 * 3 + 4 * 5 + 6 * 7';
 // const source = '1 + 2 * 3 + 4';
 // const source = '1 + 2 * 3';

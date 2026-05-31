@@ -44,19 +44,19 @@ This project intentionally keeps the code small and direct so it can be used as 
 # read left to right by for-loop
 1 + 2 * 3 + 4 * 5
 
-# step-1: meet + and then number 2
+# step-01: meet + and then number 2
   +         <-- cursor here
  / \
 1   2
 
-# step-2: meet * and then number 3
+# step-02: meet * and then number 3
   +
  / \
 1   *       <-- cursor here
    / \
   2   3
 
-# step-3: meet + and then number 4 (*Rebuild whole root tree by moving original data to left bottom)
+# step-03: meet + and then number 4 (*Rebuild whole root tree by moving original data to left bottom)
      +      <-- cursor here
     / \
    /   \
@@ -66,7 +66,7 @@ This project intentionally keeps the code small and direct so it can be used as 
    / \
   2   3
 
-# step-4: meet * and then number 5
+# step-04: meet * and then number 5
      +
     / \
    /   *    <-- cursor here
@@ -76,5 +76,104 @@ This project intentionally keeps the code small and direct so it can be used as 
      *
     / \
    2   3
+...
+```
+
+## Data algorithm diagram with parentheses
+```
+# read left to right by for-loop
+1 + 2 * (3 + 4) * 5
+
+# step-00: meet 1
+ null       <-- cursor here
+ / \
+1  null
+
+# step-01: meet +
+  +         <-- cursor here
+ / \
+1  null
+
+# step-02: meet number 2
+  +         <-- cursor here
+ / \
+1   2
+
+# step-03: meet *
+  +
+ / \
+1   *       <-- cursor here
+   / \
+  2  null
+
+# step-04: meet "("
+  +
+ / \
+1   *
+   / \
+  2  null   <-- cursor here
+     /  \
+   null null
+
+# step-05: meet number 3
+  +
+ / \
+1   *
+   / \
+  2  null   <-- cursor here
+     /  \
+    3   null
+
+# step-06: meet +
+  +
+ / \
+1   *
+   / \
+  2   +     <-- cursor here
+     /  \
+    3   null
+
+# step-07: meet 4
+  +
+ / \
+1   *
+   / \
+  2   +     <-- cursor here
+     /  \
+    3    4
+
+# step-08: meet ")"
+  +
+ / \
+1  null     <-- cursor here
+   / \
+  *  null
+ / \
+2   +
+   /  \
+  3    4
+
+# step-09: meet *
+  +
+ / \
+1   *       <-- cursor here
+   / \
+  *  null
+ / \
+2   +
+   /  \
+  3    4
+
+# step-10: meet 5
+  +
+ / \
+1   *       <-- cursor here
+   / \
+  *   5
+ / \
+2   +
+   /  \
+  3    4
+
 ...
 ```
