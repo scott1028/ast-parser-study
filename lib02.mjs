@@ -23,7 +23,7 @@ if (import.meta.main) {
 }
 
 // 找配對個括號 left, right index, FIFO
-export const findParentheses = (tokens) => {
+export const findParenthesesRange = (tokens) => {
   const leftParenthesesIdxList = [];
   const rightParenthesesIdxList = [];
 
@@ -45,11 +45,7 @@ export const findParentheses = (tokens) => {
     }
   }
 
-  // if (leftParenthesesIdxList.length !== rightParenthesesIdxList.length) {
-  //   throw new Error('parentheses is not matched')
-  // }
-
-  return [-1, -1];
+  return null;
 }
 
 if (import.meta.main) {
@@ -59,5 +55,7 @@ if (import.meta.main) {
     '(', '5', '+', '6', ')',
     ')', '*', '6'
   ];
-  console.log(findParentheses(source));
+  const tokens = findParenthesesRange(source);
+  console.log('tokens:', tokens);
+  console.log('source:', source);
 }

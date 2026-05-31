@@ -18,6 +18,6 @@ export const tokenizeSource = (stringValue) => {
 if (import.meta.main) {
   const source = '1 + 2 * 3 + 4 + 5 * 6';
   const tokens = tokenizeSource(source);
-  console.log('source:', source);
   console.log('tokens:', tokens);
+  console.log('source:', source);
 }

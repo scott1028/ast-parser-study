@@ -51,7 +51,7 @@ if (import.meta.main) {
   // step-02: nestifyTokens with priority
   const nestedTokens = nestifyTokens(tokens);
 
-  console.log('source:', source);
   console.log('tokens:', tokens);
   console.log('nestedTokens:', JSON.stringify(nestedTokens, null, 2));
+  console.log('source:', source);
 }
