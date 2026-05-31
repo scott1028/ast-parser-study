@@ -44,19 +44,19 @@ This project intentionally keeps the code small and direct so it can be used as 
 1 + 2 * 3 + 4 * 5
 
 # step-1: meet + and then number 2
-  +
+  +         <-- cursor here
  / \
 1   2
 
 # step-2: meet * and then number 3
   +
  / \
-1   *     <--
+1   *       <-- cursor here
    / \
   2   3
 
 # step-3: meet + and then number 4 (*Rebuild whole root tree by moving original data to left bottom)
-     +    <--
+     +      <-- cursor here
     / \
    /   \
   +     4
@@ -68,7 +68,7 @@ This project intentionally keeps the code small and direct so it can be used as 
 # step-4: meet * and then number 5
      +
     / \
-   /   *    <--
+   /   *    <-- cursor here
   +   / \
  / \ 4   5
 1   \
